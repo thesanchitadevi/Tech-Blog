@@ -16,6 +16,10 @@ const BlogSchema = new Schema<IBlog>(
       type: Schema.Types.ObjectId,
       ref: 'User', // Reference to the User model
     },
+    isPublished: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

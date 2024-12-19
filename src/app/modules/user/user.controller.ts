@@ -3,8 +3,8 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { userServices } from './user.service';
 
-const blockUser = catchAsync(async (req, res) => {
-  await userServices.blockUserDB(req.params.userId);
+const blockUserHandle = catchAsync(async (req, res) => {
+  await userServices.blockUserHandleFromDB(req.params.userId);
 
   sendResponse(res, {
     success: true,
@@ -14,5 +14,5 @@ const blockUser = catchAsync(async (req, res) => {
 });
 
 export const userControllers = {
-  blockUser,
+  blockUserHandle,
 };

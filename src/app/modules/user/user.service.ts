@@ -2,7 +2,8 @@ import { HttpStatus } from 'http-status-ts';
 import { AppError } from '../../errors/AppError';
 import { UserModel } from './user.model';
 
-const blockUserDB = async (userId: string) => {
+// Block a user from the database
+const blockUserHandleFromDB = async (userId: string) => {
   const user = await UserModel.findByIdAndUpdate(
     {
       _id: userId,
@@ -11,7 +12,6 @@ const blockUserDB = async (userId: string) => {
     { isBlocked: true },
     { new: true },
   );
-  console.log(user);
 
   if (!user) {
     throw new AppError(HttpStatus.NOT_FOUND, 'User not found');
@@ -21,5 +21,5 @@ const blockUserDB = async (userId: string) => {
 };
 
 export const userServices = {
-  blockUserDB,
+  blockUserHandleFromDB,
 };

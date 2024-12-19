@@ -10,14 +10,14 @@ class QueryBuilder<T> {
   }
 
   search(searchableFields: string[]) {
-    const searchTerm = this?.query?.searchTerm;
+    const search = this?.query?.search;
 
-    if (searchTerm) {
+    if (search) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
           (field) =>
             ({
-              [field]: { $regex: searchTerm, $options: 'i' },
+              [field]: { $regex: search, $options: 'i' },
             }) as FilterQuery<T>,
         ),
       });
@@ -29,18 +29,40 @@ class QueryBuilder<T> {
     const queryObject = { ...this.query };
 
     // Filtering
-    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+    const excludeFields = [
+      'search',
+      'sortBy',
+      'sortOrder',
+      'filter',
+      'limit',
+      'page',
+      'fields',
+    ];
     excludeFields.forEach((element) => delete queryObject[element]);
+
+    // Apply 'filter' to get blogs by authorId
+    if (this.query.filter) {
+      queryObject.author = this.query.filter;
+    }
 
     this.modelQuery = this.modelQuery.find(queryObject as FilterQuery<T>);
 
     return this;
   }
 
-  sort() {
-    const sort =
-      (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
-    this.modelQuery = this.modelQuery.sort(sort as string);
+  sortBy() {
+    const sortBy =
+      (this?.query?.sortBy as string)?.split(',')?.join(' ') || '-createdAt';
+    this.modelQuery = this.modelQuery.sort(sortBy as string);
+
+    return this;
+  }
+
+  sortOrder() {
+    const sortOrder = this?.query?.sortOrder === 'asc' ? 1 : -1;
+
+    // Apply the sorting based on the sortOrder value
+    this.modelQuery = this.modelQuery.sort({ createdAt: sortOrder });
 
     return this;
   }

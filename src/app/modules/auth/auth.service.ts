@@ -22,6 +22,10 @@ const loginUser = async (payload: IUserLogin) => {
     throw new AppError(HttpStatus.NOT_FOUND, 'User not found');
   }
 
+  if (user.isBlocked) {
+    throw new AppError(HttpStatus.FORBIDDEN, 'User is blocked');
+  }
+
   const isPasswordMatched = await UserModel.isPasswordMatched(
     payload.password,
     user.password,

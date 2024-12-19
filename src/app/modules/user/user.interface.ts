@@ -1,4 +1,5 @@
 import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constant';
 
 export interface IUser {
   _id?: string;
@@ -7,8 +8,6 @@ export interface IUser {
   password: string;
   role: 'admin' | 'user';
   isBlocked: boolean;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface IUserStaticModel extends Model<IUser> {
@@ -21,3 +20,5 @@ export interface IUserStaticModel extends Model<IUser> {
     hashPassword: string,
   ): Promise<boolean>;
 }
+
+export type TUserRole = keyof typeof USER_ROLE;

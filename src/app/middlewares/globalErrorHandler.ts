@@ -27,8 +27,8 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     errorSources = simplifiedError?.errorSources;
   } else if (error?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(error);
-    statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
+    statusCode = simplifiedError?.statusCode;
     errorSources = simplifiedError.errorSources;
   } else if (error?.name === 'CastError') {
     const simplifiedError = handleCastError(error);
@@ -62,7 +62,8 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   res.status(statusCode).json({
     success: false,
     message,
-    errorSources,
+    statusCode,
+    // errorSources,
     error,
     stack: config.NODE_ENV === 'development' ? error?.stack : null,
   });

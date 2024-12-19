@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 
 // Routes
-app.use('/api/v1', router);
+app.use('/api', router);
 
 const getController = async (req: Request, res: Response) => {
   res.status(200).json({

@@ -5,8 +5,10 @@ import { HttpStatus } from 'http-status-ts';
 const notFound = (_req: Request, res: Response, _next: NextFunction) => {
   res.status(HttpStatus.NOT_FOUND).json({
     success: false,
-    message: 'Resource not found',
-    error: '',
+    message: 'Not Found Error',
+    error: {
+      details: 'The requested resource was not found',
+    },
   });
 };
 

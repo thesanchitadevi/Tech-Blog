@@ -63,8 +63,9 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     success: false,
     message,
     statusCode,
-    // errorSources,
-    error,
+    error: {
+      details: errorSources,
+    },
     stack: config.NODE_ENV === 'development' ? error?.stack : null,
   });
 };

@@ -1,4 +1,6 @@
+import { HttpStatus } from 'http-status-ts';
 import QueryBuilder from '../../builder/QueryBuilder';
+import { AppError } from '../../errors/AppError';
 import { BlogSearchableFields } from './blog.constant';
 import { IBlog } from './blog.interface';
 import { BlogModel } from './blog.model';
@@ -29,7 +31,38 @@ const getBlogsFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const updateBlogInDB = async (
+  blogId: string,
+  userId: string,
+  payload: Partial<IBlog>,
+) => {
+  // Find the blog by ID
+  const blog = await BlogModel.findById({ _id: blogId });
+
+  // Check if the blog exists
+  if (!blog) {
+    throw new AppError(HttpStatus.NOT_FOUND, 'Blog not found');
+  }
+
+  // Check if the user is the author of the blog
+  if (blog.author.toString() !== userId) {
+    throw new AppError(
+      HttpStatus.FORBIDDEN,
+      'You are not allowed to update this blog',
+    );
+  }
+
+  // Update the blog
+  const updateBlog = await BlogModel.findByIdAndUpdate(blogId, payload, {
+    new: true,
+    runValidators: true,
+  }).populate('author', 'name email role');
+
+  return updateBlog;
+};
+
 export const blogServices = {
   createBlogIntoDB,
   getBlogsFromDB,
+  updateBlogInDB,
 };

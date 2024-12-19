@@ -37,7 +37,23 @@ const getAllBlogs = catchAsync(async (req, res) => {
   });
 });
 
+const updateBlog = catchAsync(async (req, res) => {
+  const user = req.user as JwtPayload; // Extract user ID from authenticated user
+
+  const { id: blogId } = req.params;
+
+  const blog = await blogServices.updateBlogInDB(blogId, user.userId, req.body);
+
+  sendResponse(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: 'Blog updated successfully',
+    data: blog,
+  });
+});
+
 export const blogControllers = {
   createBlog,
   getAllBlogs,
+  updateBlog,
 };

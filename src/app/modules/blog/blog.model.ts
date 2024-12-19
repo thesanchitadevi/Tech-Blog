@@ -15,7 +15,6 @@ const BlogSchema = new Schema<IBlog>(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User', // Reference to the User model
-      required: [true, 'Author is required'],
     },
   },
   {

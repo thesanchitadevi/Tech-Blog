@@ -6,7 +6,7 @@ TechBlog is a modern blogging platform that allows users to create, manage, and 
 
 ### Admin Credentials
 
-````"name": "Admin",
+````
   "email": "admin@email.com",
   "password": "admin123" ```
 ````
@@ -41,49 +41,56 @@ TechBlog is a modern blogging platform that allows users to create, manage, and 
 
 - Clone the Repository
 
-````git clone https://github.com/thesanchitadevi/techblog.git
-cd techblog```
+````
+git clone https://github.com/thesanchitadevi/techblog.git
+cd techblog
+```
 
 * Install Dependencies
 
-```npm install```
+```
+npm install
+```
 
 * Configure Environment Variables
 Create a ``.env`` file in the root directory and add the following:
 
-```NODE_ENV=development
+```
+NODE_ENV=development
 PORT=5000
 DATABASE_URL=
 BYCRYPT_SALT=10
 DEFAULT_PASS=#admin1234
 JWT_ACCESS_SECRET=
-JWT_ACCESS_EXPIRES_IN=```
+JWT_ACCESS_EXPIRES_IN=
+```
 
 * Run the Development Server
 
-```npm run dev
+```
+npm run dev
 ````
 
 ### API Endpoints
 
-- Authentication
+#### Authentication
 
-POST `/api/auth/register` - Register a new user.
+- POST `/api/auth/register` - Register a new user.
 
-POST `/api/auth/login` - User login.
+- POST `/api/auth/login` - User login.
 
-- Blog Management
+#### Blog Management
 
-POST `/api/blogs` - Create a new blog.
+- POST `/api/blogs` - Create a new blog.
 
-GET `/api/blogs` - Fetch all blogs with search and filters.
+- GET `/api/blogs` - Fetch all blogs with search and filters.
 
-PATCH `/api/blogs/:id` - Update user's own blog by ID.
+- PATCH `/api/blogs/:id` - Update user's own blog by ID.
 
-DELETE `/api/blogs/:id` - Delete user's own blog by ID.
+- DELETE `/api/blogs/:id` - Delete user's own blog by ID.
 
-- Admin Actions
+#### Admin Actions
 
-PATCH `/api/admin/users/:userId/block` - Block a user.
+- PATCH `/api/admin/users/:userId/block` - Block a user.
 
-DELETE `/api/admin/blogs/:id` - Delete any blog.
+- DELETE `/api/admin/blogs/:id` - Delete any blog.

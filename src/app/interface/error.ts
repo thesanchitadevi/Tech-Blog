@@ -1,4 +1,6 @@
 export type TErrorSources = {
+  name?: string;
+  type?: string;
   path: string | number;
   message: string;
 }[];

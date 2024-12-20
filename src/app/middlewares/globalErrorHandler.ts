@@ -8,6 +8,12 @@ import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import { AppError } from '../errors/AppError';
 import handleZodError from '../errors/handleZodError';
+import {
+  AuthenticationError,
+  AuthorizationError,
+  InternalServerError,
+  NotFoundError,
+} from '../errors/CustomeErrors';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
@@ -15,7 +21,9 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
 
   let errorSources: TErrorSources = [
     {
+      name: '',
       path: '',
+      type: '',
       message: 'Something went wrong',
     },
   ];
@@ -40,11 +48,18 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSources = simplifiedError.errorSources;
-  } else if (error instanceof AppError) {
+  } else if (
+    error instanceof AppError ||
+    error instanceof AuthenticationError ||
+    error instanceof AuthorizationError ||
+    error instanceof InternalServerError ||
+    error instanceof NotFoundError
+  ) {
     statusCode = error.statusCode;
     message = error.message;
     errorSources = [
       {
+        name: error?.name,
         path: '',
         message: error?.message,
       },
@@ -53,6 +68,7 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     message = error.message;
     errorSources = [
       {
+        name: error?.name,
         path: '',
         message: error?.message,
       },

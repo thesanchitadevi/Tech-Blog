@@ -9,6 +9,7 @@ const handleValidationError = (
       return {
         name: value?.name,
         path: value?.path,
+        type: value?.kind,
         message: value?.message,
       };
     },

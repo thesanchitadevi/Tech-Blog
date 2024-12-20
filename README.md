@@ -1,4 +1,4 @@
-## TechBlog - A Modern Blogging Platform
+## TechBlog
 
 ### Overview
 
@@ -6,12 +6,12 @@ TechBlog is a modern blogging platform that allows users to create, manage, and 
 
 ### Admin Credentials
 
-````
+```
 {
   "email": "admin@email.com",
   "password": "admin123"
 }
-````
+```
 
 ### Features
 
@@ -48,14 +48,14 @@ git clone https://github.com/thesanchitadevi/techblog.git
 cd techblog
 ```
 
-* Install Dependencies
+- Install Dependencies
 
 ```
 npm install
 ```
 
-* Configure Environment Variables
-Create a ``.env`` file in the root directory and add the following:
+- Configure Environment Variables
+  Create a `.env` file in the root directory and add the following:
 
 ```
 NODE_ENV=development
@@ -67,11 +67,13 @@ JWT_ACCESS_SECRET=
 JWT_ACCESS_EXPIRES_IN=
 ```
 
-* Run the Development Server
+- Run the Development Server
 
 ```
 npm run dev
-````
+```
+
+The application will run on `http://localhost:5000`
 
 ### API Endpoints
 
@@ -96,3 +98,24 @@ npm run dev
 - PATCH `/api/admin/users/:userId/block` - Block a user.
 
 - DELETE `/api/admin/blogs/:id` - Delete any blog.
+
+### Project Structure
+
+The `src` directory contains the following subdirectories and files:
+
+- `app.ts`: Initializes the Express application and configures middleware.
+- `server.ts`: Starts the server and listens on the specified port.
+- `app`: Contains the main application logic.
+  - `builder`: Contains query building details for the application.
+  - `config`: Contains configuration files for the application.
+  - `errors`: Contains error files or the application.
+  - `middlewares` : Contains all middlewares files or the application.
+  - `modules`: Contains the different modules of the application.
+    - `auth`: Contains the aujtentication module.
+    - `blog`: Contains the blog module.
+    - `user`: Contains the user module
+  - `routes` : Contains all router files or the application.
+
+### Conclusion
+
+Thank you for exploring TechBlog!

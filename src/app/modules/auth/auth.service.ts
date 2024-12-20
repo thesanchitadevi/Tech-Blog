@@ -19,7 +19,6 @@ const registerUser = async (payload: IUserRegister) => {
 // Login a user and generate access and refresh tokens
 const loginUser = async (payload: IUserLogin) => {
   const user = await UserModel.findOne({ email: payload.email });
-  console.log(user);
 
   // Check if the user exists
   if (!user) {

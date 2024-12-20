@@ -7,8 +7,10 @@ TechBlog is a modern blogging platform that allows users to create, manage, and 
 ### Admin Credentials
 
 ````
+{
   "email": "admin@email.com",
-  "password": "admin123" 
+  "password": "admin123"
+}
 ````
 
 ### Features

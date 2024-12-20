@@ -27,7 +27,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const decoded = jwt.verify(token, config.jwt_access_secret as string);
 
     // checking if the token is valid
-    if (!decoded) {
+    if (!token || !decoded) {
       throw new AuthenticationError(
         HttpStatus.UNAUTHORIZED,
         'Invalid token provided',

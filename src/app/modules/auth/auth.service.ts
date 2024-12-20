@@ -19,6 +19,7 @@ const registerUser = async (payload: IUserRegister) => {
 // Login a user and generate access and refresh tokens
 const loginUser = async (payload: IUserLogin) => {
   const user = await UserModel.findOne({ email: payload.email });
+  console.log(user);
 
   // Check if the user exists
   if (!user) {
@@ -53,17 +54,9 @@ const loginUser = async (payload: IUserLogin) => {
     config.jwt_access_expires_in as string,
   );
 
-  // refresh token
-  const refreshToken = createToken(
-    jwtPayload,
-    config.jwt_refresh_secret as string,
-    config.jwt_refresh_expires_in as string,
-  );
-
   return {
     user,
     accessToken,
-    refreshToken,
   };
 };
 

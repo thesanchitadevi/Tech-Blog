@@ -23,6 +23,7 @@ const BlogSchema = new Schema<IBlog>(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

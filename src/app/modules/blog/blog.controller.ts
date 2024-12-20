@@ -33,7 +33,12 @@ const getAllBlogs = catchAsync(async (req, res) => {
     statusCode: HttpStatus.OK,
     success: true,
     message: 'Blogs fetched successfully',
-    data: blogs,
+    data: blogs.map((blog) => ({
+      _id: blog._id,
+      title: blog.title,
+      content: blog.content,
+      author: blog.author,
+    })),
   });
 });
 
@@ -48,7 +53,12 @@ const updateBlog = catchAsync(async (req, res) => {
     statusCode: HttpStatus.OK,
     success: true,
     message: 'Blog updated successfully',
-    data: blog,
+    data: {
+      _id: blog?._id,
+      title: blog?.title,
+      content: blog?.content,
+      author: blog?.author,
+    },
   });
 });
 

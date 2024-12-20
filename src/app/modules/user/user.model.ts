@@ -33,6 +33,7 @@ const userSchema = new Schema<IUser, IUserStaticModel>(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

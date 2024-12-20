@@ -53,10 +53,14 @@ const updateBlogInDB = async (
   }
 
   // Update the blog
-  const updateBlog = await BlogModel.findByIdAndUpdate(blogId, payload, {
-    new: true,
-    runValidators: true,
-  }).populate('author', '-password');
+  const updateBlog = await BlogModel.findByIdAndUpdate(
+    blogId,
+    { ...payload },
+    {
+      new: true,
+      runValidators: true,
+    },
+  ).populate('author', '-password');
 
   return updateBlog;
 };

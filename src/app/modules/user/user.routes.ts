@@ -11,4 +11,7 @@ router.patch(
   userControllers.blockUserHandle,
 );
 
+// Admin can delete any blog
+router.delete('/blogs/:id', auth('admin'), userControllers.deleteBlog);
+
 export const UserRouter = router;

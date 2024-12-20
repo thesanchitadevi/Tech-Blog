@@ -13,6 +13,17 @@ const blockUserHandle = catchAsync(async (req, res) => {
   });
 });
 
+const deleteBlog = catchAsync(async (req, res) => {
+  await userServices.deleteBlogFromDB(req.params.id);
+
+  sendResponse(res, {
+    success: true,
+    message: 'Blog deleted successfully',
+    statusCode: HttpStatus.OK,
+  });
+});
+
 export const userControllers = {
   blockUserHandle,
+  deleteBlog,
 };

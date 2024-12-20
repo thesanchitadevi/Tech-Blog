@@ -10,14 +10,14 @@ const createBlogIntoDB = async (payload: IBlog) => {
   const blog = await BlogModel.create(payload);
 
   // Populate the author field with name, email, and role
-  const populatedBlog = await blog.populate('author', 'name email role');
+  const populatedBlog = await blog.populate('author', '-password');
   return populatedBlog;
 };
 
 const getBlogsFromDB = async (query: Record<string, unknown>) => {
   // Get all blogs from the database
   const blogQuery = new QueryBuilder(
-    BlogModel.find().populate('author', 'name email role'),
+    BlogModel.find().populate('author', '-password'),
     query,
   )
     .search(BlogSearchableFields)
@@ -56,13 +56,36 @@ const updateBlogInDB = async (
   const updateBlog = await BlogModel.findByIdAndUpdate(blogId, payload, {
     new: true,
     runValidators: true,
-  }).populate('author', 'name email role');
+  }).populate('author', '-password');
 
   return updateBlog;
+};
+
+const deleteBlogFromDB = async (blogId: string, userId: string) => {
+  // Find the blog by ID
+  const blog = await BlogModel.findById({ _id: blogId });
+
+  // Check if the blog exists
+  if (!blog) {
+    throw new AppError(HttpStatus.NOT_FOUND, 'Blog not found');
+  }
+
+  // Check if the user is the author of the blog
+  if (blog.author.toString() !== userId) {
+    throw new AppError(
+      HttpStatus.FORBIDDEN,
+      'You are not allowed to delete this blog',
+    );
+  }
+
+  // Delete the blog
+  const deletedBlog = await BlogModel.findByIdAndDelete(blogId);
+  return deletedBlog;
 };
 
 export const blogServices = {
   createBlogIntoDB,
   getBlogsFromDB,
   updateBlogInDB,
+  deleteBlogFromDB,
 };

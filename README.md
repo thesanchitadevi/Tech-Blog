@@ -41,7 +41,7 @@ TechBlog is a modern blogging platform that allows users to create, manage, and 
 
 - Clone the Repository
 
-````
+```
 git clone https://github.com/thesanchitadevi/techblog.git
 cd techblog
 ```

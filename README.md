@@ -2,7 +2,7 @@
 
 ### Overview
 
-TechBlog is a modern blogging platform that allows users to create, manage, and explore blogs on various topics. Designed for seamless performance and a user-friendly experience, TechBlog is built using state-of-the-art technologies.
+The TechBlog backend server is a RESTful API built using Node.js, Express, and TypeScript, with MongoDB as the database. It serves as the core of the TechBlog application, providing endpoints for user authentication, blog management, and admin functionalities. Designed for scalability and security, this server ensures smooth communication between the frontend and the database.
 
 ### Admin Credentials
 
@@ -89,9 +89,9 @@ The application will run on `http://localhost:5000`
 
 - GET `/api/blogs` - Fetch all blogs with search and filters.
 
-- PATCH `/api/blogs/:id` - Update user's own blog by ID.
+- PATCH `/api/blogs/:id` - Update a blog owned by the user.
 
-- DELETE `/api/blogs/:id` - Delete user's own blog by ID.
+- DELETE `/api/blogs/:id` - Delete a blog owned by the user.
 
 #### Admin Actions
 
@@ -109,12 +109,12 @@ The `src` directory contains the following subdirectories and files:
   - `builder`: Contains query building details for the application.
   - `config`: Contains configuration files for the application.
   - `errors`: Contains error files or the application.
-  - `middlewares` : Contains all middlewares files or the application.
+  - `middlewares`: Contains all middlewares files or the application.
   - `modules`: Contains the different modules of the application.
-    - `auth`: Contains the aujtentication module.
+    - `auth`: Contains the authentication module.
     - `blog`: Contains the blog module.
     - `user`: Contains the user module
-  - `routes` : Contains all router files or the application.
+  - `routes`: Contains all router files or the application.
 
 ### Conclusion
 

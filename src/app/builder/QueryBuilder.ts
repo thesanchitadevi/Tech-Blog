@@ -51,19 +51,20 @@ class QueryBuilder<T> {
   }
 
   sortBy() {
-    const sortBy =
-      (this?.query?.sortBy as string)?.split(',')?.join(' ') || '-createdAt';
-    this.modelQuery = this.modelQuery.sort(sortBy as string);
-
+    // Only apply if sortBy is specified
+    if (this?.query?.sortBy) {
+      const sortBy = (this.query.sortBy as string).split(',').join(' ');
+      this.modelQuery = this.modelQuery.sort(sortBy);
+    }
     return this;
   }
 
   sortOrder() {
-    const sortOrder = this?.query?.sortOrder === 'asc' ? 1 : -1;
-
-    // Apply the sorting based on the sortOrder value
-    this.modelQuery = this.modelQuery.sort({ createdAt: sortOrder });
-
+    // Only apply if sortOrder is specified and sortBy isn't
+    if (this?.query?.sortOrder && !this?.query?.sortBy) {
+      const sortOrder = this.query.sortOrder === 'asc' ? 1 : -1;
+      this.modelQuery = this.modelQuery.sort({ createdAt: sortOrder });
+    }
     return this;
   }
 
